@@ -1,0 +1,15 @@
+{
+  "name": "gps-link-bridge",
+  "version": "1.0.0",
+  "description": "Paste GPS coordinates, get a navigation link for AMap and other map apps. Runs entirely in the browser.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "start": "node scripts/serve.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>GPS Link Bridge</title>
+  <meta name="description" content="Paste GPS coordinates from iOverlander, OsmAnd or a map link and get a navigation link for AMap, Google Maps, Apple Maps, Baidu or OsmAnd. Runs entirely in your browser.">
+  <meta property="og:title" content="GPS Link Bridge">
+  <meta property="og:description" content="Paste coordinates, get a navigation link for AMap and other apps. Runs entirely in your browser.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>GPS Link Bridge</h1>
+      <p class="lede">Paste coordinates from iOverlander, OsmAnd or a map link. Get a navigation link for AMap or another app.</p>
+      <p class="trust">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8.2-8 9-4.8-.8-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        Runs in your browser. Nothing is sent or stored on a server.
+      </p>
+    </header>
+
+    <noscript><p class="note">This page needs JavaScript to convert coordinates. It still runs entirely on your device.</p></noscript>
+
+    <section class="card" aria-label="Coordinates input">
+      <label for="coords">Coordinates or map link</label>
+      <div class="field">
+        <textarea id="coords" rows="2" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-describedby="status"></textarea>
+        <span class="example-tag" id="exTag">Example</span>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+
+      <details class="more" id="moreOpts">
+        <summary>Options: travel mode, source system, place name</summary>
+        <div class="opts">
+          <fieldset>
+            <legend>Travel mode</legend>
+            <div class="segbtns">
+              <label><input type="radio" name="mode" value="car" checked><span>Car</span></label>
+              <label><input type="radio" name="mode" value="walk"><span>Walk</span></label>
+              <label><input type="radio" name="mode" value="bus"><span>Transit</span></label>
+              <label><input type="radio" name="mode" value="bike"><span>Bike</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Pasted coordinates are in</legend>
+            <div class="segbtns">
+              <label><input type="radio" name="datum" value="wgs" checked><span>WGS-84</span></label>
+              <label><input type="radio" name="datum" value="gcj"><span>GCJ-02</span></label>
+            </div>
+            <p class="help">iOverlander and OsmAnd use WGS-84.</p>
+          </fieldset>
+          <div class="full">
+            <label for="name">Place name (optional)</label>
+            <input id="name" type="text" autocomplete="off" placeholder="Lakeside campsite">
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="card result" aria-label="Generated link">
+      <div>
+        <label for="app">Open with</label>
+        <select id="app">
+          <optgroup label="Navigation">
+            <option value="amapNav">AMap (Gaode): navigate</option>
+            <option value="amapPin">AMap (Gaode): show point</option>
+            <option value="google">Google Maps</option>
+            <option value="apple">Apple Maps</option>
+            <option value="baidu">Baidu Maps (opens the app)</option>
+            <option value="osmand">OsmAnd</option>
+            <option value="osm">OpenStreetMap</option>
+            <option value="geo">geo: link (Android)</option>
+          </optgroup>
+          <optgroup label="Copy coordinates as">
+            <option value="fmtLatLon">Latitude, longitude</option>
+            <option value="fmtLonLat">Longitude, latitude</option>
+            <option value="fmtDms">Degrees, minutes, seconds</option>
+            <option value="fmtGcj">GCJ-02 latitude, longitude</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="result-head"><span id="resultTitle" class="help"></span><span id="resultTag" class="tag" hidden></span></div>
+      <code class="url" id="resultUrl"></code>
+      <div class="acts" id="acts">
+        <a class="btn primary" id="openBtn" target="_blank" rel="noopener">Open</a>
+        <button class="btn" id="copyBtn" type="button">Copy</button>
+      </div>
+      <p class="empty" id="emptyMsg" hidden>Links appear here once coordinates are recognized.</p>
+    </section>
+
+    <footer>
+      <p class="support">This tool is free and always will be. If it saved you some time and you'd like to support it, you can buy me a coffee. Totally optional.</p>
+      <a class="coffee" id="coffee" href="https://www.buymeacoffee.com/rimaxime" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8z"/><path d="M17 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 3v2M12 3v2"/></svg>
+        Buy me a coffee
+      </a>
+      <p class="note">Free, no account, no ads, no tracking. Your coordinates are processed on your device and never leave it. The WGS-84 to GCJ-02 conversion uses the common public algorithm, not AMap's own, so a few meters of difference is possible. It only applies in the area around mainland China.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
