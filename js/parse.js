@@ -12,11 +12,23 @@ function found(lat, lon, format, notes) {
   return valid(lat, lon) ? { lat, lon, format, notes: notes || [] } : null;
 }
 
+// Google Maps draws mainland China in GCJ-02, so the coordinates inside its links are GCJ-02 there.
+const GOOGLE_LINK = /(?:google\.[a-z.]+\/maps|maps\.google\.|goo\.gl|maps\.app\.goo\.gl)/i;
+
 /**
  * @param {string} raw
- * @returns {{lat:number, lon:number, format:string, notes:string[]} | null}
+ * @returns {{lat:number, lon:number, format:string, notes:string[], datumHint?:"gcj"} | null}
  */
 export function parseCoords(raw) {
+  const result = parseInner(raw);
+  if (result && GOOGLE_LINK.test(String(raw))) {
+    result.datumHint = "gcj";
+    result.notes.push("Google Maps link, read as GCJ-02");
+  }
+  return result;
+}
+
+function parseInner(raw) {
   let t = String(raw || "").trim();
   if (!t) return null;
   try { t = decodeURIComponent(t); } catch { /* keep the text as is */ }

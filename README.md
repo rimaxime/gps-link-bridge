@@ -31,11 +31,11 @@ Travel modes: car, walk, transit, bike. Add an optional place name to label the 
 
 ## Coordinate systems
 
-iOverlander and OsmAnd give WGS-84. AMap and Apple Maps in China expect GCJ-02. The page converts for you. If you paste coordinates that are already GCJ-02, switch **Pasted coordinates are in** to GCJ-02.
+iOverlander and OsmAnd give WGS-84. AMap, Google Maps and Apple Maps expect GCJ-02 inside mainland China (they draw their maps with that offset), and WGS-84 elsewhere. The page converts for you, so each link is tagged with the system it uses. If you paste coordinates that are already GCJ-02, switch **Pasted coordinates are in** to GCJ-02. Google Maps links are the exception: inside mainland China their coordinates are already GCJ-02, so the page reads them that way automatically.
 
 The conversion uses the widely shared public algorithm, not AMap's internal one, so expect a difference of a few meters at most. It only applies inside a rough bounding box around mainland China. Elsewhere the point is used as is.
 
-Worth checking on your own devices: Apple Maps in China is sent GCJ-02 coordinates, and the Baidu link is an app link (`baidumap://`) that only works on a phone with the app installed.
+Worth checking on your own devices: the Baidu link is an app link (`baidumap://`) that only works on a phone with the app installed, and Apple Maps behavior in China has not been verified on a device.
 
 ## Run locally
 

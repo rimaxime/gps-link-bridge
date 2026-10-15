@@ -34,6 +34,23 @@ for (const [label, input, lat, lon] of accepted) {
   });
 }
 
+test("Google Maps links are flagged as GCJ-02", () => {
+  for (const url of [
+    "https://www.google.com/maps/@39.9042,116.4074,15z",
+    "https://www.google.com/maps/place/X/data=!3d39.9042!4d116.4074",
+    "https://www.google.com/maps?q=39.9042,116.4074",
+  ]) {
+    const r = parseCoords(url);
+    assert.equal(r.datumHint, "gcj", url);
+  }
+});
+
+test("other inputs carry no datum hint", () => {
+  for (const input of ["39.9042, 116.4074", "geo:39.9042,116.4074", "https://www.openstreetmap.org/#map=16/39.9042/116.4074"]) {
+    assert.equal(parseCoords(input).datumHint, undefined, input);
+  }
+});
+
 test("reports the lon, lat swap", () => {
   const r = parseCoords("116.4074, 39.9042");
   assert.ok(r.notes.some((n) => n.includes("lon, lat")));

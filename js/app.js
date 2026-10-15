@@ -106,7 +106,8 @@ function render() {
   setStatus(result, false);
 
   let wgs, gcj, shifted;
-  if ((checked("datum") || "wgs") === "wgs") {
+  const datum = result.datumHint || checked("datum") || "wgs";
+  if (datum === "wgs") {
     wgs = { lat: result.lat, lon: result.lon };
     const g = wgsToGcj(result.lon, result.lat);
     gcj = { lat: g.lat, lon: g.lon };
