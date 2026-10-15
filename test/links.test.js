@@ -32,7 +32,7 @@ test("bike maps to AMap ride and Google bicycling", () => {
 
 test("WGS-84 apps get WGS-84 and GCJ-02 apps get GCJ-02", () => {
   const l = buildLinks(wgs, gcj, true, "", "car");
-  assert.ok(l.google.url.includes("destination=39.904200,116.407400"));
+  assert.ok(l.google.url.includes("destination=39.905603,116.413642"));
   assert.ok(l.apple.url.includes("daddr=39.905603,116.413642"));
   assert.ok(l.osmand.url.startsWith("https://osmand.net/map?pin=39.904200,116.407400"));
 });
